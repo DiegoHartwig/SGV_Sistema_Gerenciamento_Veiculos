@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="content">
+		<!-- begin content -->
+
+		<!-- Loading -->
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/img/loader.gif" />
+		</p:dialog>
+
+		<!-- begin form -->
+		<h:form id="frmManutencoes">
+			<p:panel id="painelManutencao">
+				<p:growl id="growl" sticky="true" life="3000" />
+				<p:dataTable id="listagem_manutencao"
+					value="#{manutencaoBean.manutencoes}" var="m"
+					filteredValue="#{manutencaoBean.manutencoesFiltradas}"
+					draggableColumns="true" style="margin-bottom:0" scrollable="true"
+					scrollWidth="98%" paginator="true" rows="8"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,8,15,20" paginatorPosition="bottom"
+					selection="#{manutencaoBean.manutencaoSelecionada}"
+					selectionMode="single" rowKey="#{m.id}"
+					paginatorAlwaysVisible="true"
+					currentPageReportTemplate="{totalRecords} Manutenções"
+					emptyMessage="Nenhuma manutenção registrada.">
+
+					<p:ajax event="rowSelect" />
+
+					<f:facet name="header">
+      				  Chamados
+    			</f:facet>
+
+
+					<p:column style="width:110px;" filterBy="#{c.id}">
+						<f:facet name="header">
+							<h:outputText value="ID" />
+						</f:facet>
+						<h:outputText value="#{m.id}" />
+					</p:column>
+
+
+					<p:column style="width:120px;">
+						<f:facet name="header">
+							<h:outputText value="Data da manutenção" />
+						</f:facet>
+						<h:outputText value="#{m.dataManutencao}"/>
+					</p:column>
+
+					<p:column style="width:110px;background-color:#CEECF5;
+				"
+						filterBy="#{m.veiculo.placa}">
+						<f:facet name="header">
+							<h:outputText value="Veículo" />
+						</f:facet>
+						<h:outputText value="#{m.veiculo.placa}" />
+					</p:column>
+
+					<p:column style="width:110px; background-color:#848484;"
+						filterBy="#{m.componente.nome}">
+						<f:facet name="header">
+							<h:outputText value="Componente" />
+						</f:facet>
+						<h:outputText value="#{m.componente.nome}" />
+					</p:column>
+
+					<p:column style="width:250px;">
+						<f:facet name="header">
+							<h:outputText value="Descrição" />
+						</f:facet>
+						<h:outputText value="#{m.descricao}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NÃO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:commandButton value="Nova Manutenção"
+							actionListener="#{manutencaoBean.novaManutencao}"
+							action="#{janelaBean.abrirNovaManutencao}"
+							icon="ui-icon-circle-plus" immediate="true">
+						</p:commandButton>
+
+						<p:commandButton value="Cadastrar Peça"
+							actionListener="#{componenteBean.novoComponente}"
+							action="#{janelaBean.abrirNovoComponente}"
+							icon="ui-icon-circle-plus" immediate="true">
+						</p:commandButton>
+
+					</p:toolbarGroup>
+
+					<p:toolbarGroup align="right">
+						<h:commandLink title="Exportar Chamados para Excel">
+							<p:graphicImage library="img" name="excel.png" width="24" />
+							<p:dataExporter type="xls" target="listagem_chamados"
+								fileName="chamados" encoding="UTF-8" />
+						</h:commandLink>
+						<h:commandLink title="Exportar Chamados para PDF">
+							<p:graphicImage library="img" name="pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="listagem_chamados"
+								fileName="chamados" preProcessor="#{chamadoBean.preProcessPDF}"
+								encoding="iso-8859-1" />
+						</h:commandLink>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</p:panel>
+		</h:form>
+	</ui:define>
+	<!-- end content -->
+</ui:composition>
+</html>

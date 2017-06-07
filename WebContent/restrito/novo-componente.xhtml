@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Nova Peça</title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+<h:body>
+
+	<!-- Loading -->
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage name="/img/loader.gif" />
+	</p:dialog>
+
+	<h:form id="frmNovoComponente" acceptcharset="ISO-8859-1">
+		<div id="conteudo">
+			<p:panel id="painelNovoComponente">
+				<p:focus context="painelNovoComponente" />
+				<p:messages autoUpdate="true" />
+				<p:panelGrid columns="2" styleClass="semBorda">
+
+					<p:outputLabel value="Descrição:" for="nome" />
+					<p:inputText id="nome" size="30" value="#{componenteBean.componente.nome}"
+						placeholder="Descrição da peça" />
+						
+					<p:outputLabel for="status" value="Status:" />
+					<p:selectOneMenu id="status" value="#{componenteBean.componente.status}">
+						<f:selectItem itemLabel="Disponivel" itemValue="disponivel" />
+						<f:selectItem itemLabel="Reservado" itemValue="reservado" />
+					</p:selectOneMenu>	
+
+				</p:panelGrid>
+			</p:panel>
+			<p:toolbar>
+				<p:toolbarGroup align="left">
+					<p:commandButton value="Salvar" icon="ui-icon-circle-check"
+						actionListener="#{componenteBean.addComponente}" process="frmNovoComponente"
+						update="@form" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+		</div>
+	</h:form>
+</h:body>
+</html>

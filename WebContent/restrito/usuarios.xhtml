@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/template/principal.xhtml">
+	<ui:define name="content">
+		<!-- begin content -->
+		
+		<!-- Loading -->
+		<p:ajaxStatus onstart="PF('statusDialog').show()"
+			onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage name="/img/loader.gif" />
+		</p:dialog>
+
+		<h:form id="frmNovoUsuario" acceptcharset="ISO-8859-1">
+			<p:accordionPanel>
+				<p:tab title="Novo Usuário">
+					<p:panel id="painelUsuario">
+						<p:focus context="painelUsuario" />
+						<p:messages id="messages" autoUpdate="true" closable="true" />
+						<p:panelGrid columns="6" styleClass="semBorda">
+							<!-- Campo Nome -->
+							<p:outputLabel value="Nome Completo:" for="nome" />
+							<p:inputText id="nome" value="#{usuarioBean.usuario.nome}"
+								placeholder="Nome Completo" size="30" maxlength="45"
+								required="true" requiredMessage="Nome Completo">
+								<f:validateLength minimum="5" maximum="45" />
+							</p:inputText>
+
+							<!-- Campo Login -->
+							<p:outputLabel value="Login:" for="login" />
+							<p:inputText id="login" value="#{usuarioBean.usuario.login}"
+								placeholder="Login" size="30" maxlength="45" required="true"
+								requiredMessage="Digite o login!">
+								<f:validateLength minimum="5" maximum="45" />
+							</p:inputText>
+
+							<!-- Campo Senha -->
+							<p:outputLabel value="Senha:" for="pwd1" />
+							<p:password id="pwd1" value="#{usuarioBean.usuario.senha}"
+								placeholder="Digite uma senha" size="30" maxlength="30"
+								required="true" requiredMessage="Digite uma senha!" match="pwd2"
+								feedback="true" promptLabel="Nivel da Senha"
+								weakLabel="Senha Fraca" goodLabel="Senha Boa"
+								strongLabel="Excelente">
+								<f:validateLength minimum="5" maximum="30" />
+							</p:password>
+
+							<!-- Campo Confirma Senha -->
+							<p:outputLabel value="Confirme a Senha:" for="pwd2" />
+							<p:password id="pwd2" placeholder="Digite novamente" size="30"
+								maxlength="30" required="true"
+								requiredMessage="Digite a mesma senha novamente!"
+								feedback="true" promptLabel="Nivel da Senha"
+								weakLabel="Senha Fraca" goodLabel="Senha Boa"
+								strongLabel="Excelente">
+								<f:validateLength minimum="5" maximum="30" />
+							</p:password>
+
+							<!-- Campo Email -->
+							<p:outputLabel value="Email:" for="email" />
+							<p:inputText id="email" value="#{usuarioBean.usuario.email}"
+								placeholder="ex: email@dominio.com" size="30" maxlength="30"
+								required="true" validatorMessage="Email Inválido!">
+								<f:validateRegex pattern="[a-zA-Z0-9\-\_\.]+@[a-zA-Z0-9\-\_\.]+" />
+							</p:inputText>
+
+							<!-- Campo Telefone -->
+							<p:outputLabel value="Telefone:" for="fone" />
+							<p:inputMask mask="(99) 9999-9999" id="fone"
+								value="#{usuarioBean.usuario.telefone}"
+								placeholder="ex: (41 - 9999-9999)" size="30" />
+
+						</p:panelGrid>
+
+						<p:toolbar>
+							<p:toolbarGroup align="left">
+								<p:commandButton value="Salvar" icon="ui-icon-circle-check"
+									actionListener="#{usuarioBean.addUsuario}" ajax="false" />
+
+								<p:commandButton value="Novo"
+									actionListener="#{usuarioBean.novoUsuario}" ajax="false"
+									action="usuarios?faces-redirect=true" immediate="true"
+									icon="ui-icon-circle-plus" />
+
+							</p:toolbarGroup>
+						</p:toolbar>
+					</p:panel>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+
+		<!-- begin form Listar -->
+		<h:form id="frmListarUsuarios" acceptcharset="ISO-8859-1">
+			<p:accordionPanel>
+				<p:tab title="Usuários">
+					<p:panel id="painelUsuarios">
+						<p:dataTable id="listagem_usuarios"
+							value="#{usuarioBean.usuarios}" var="u" draggableColumns="true"
+							style="margin-bottom:0" paginator="true" rows="3"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="3,10,15" paginatorPosition="bottom"
+							selection="#{usuarioBean.usuarioSelecionado}"
+							selectionMode="single" rowKey="#{u.id}"
+							paginatorAlwaysVisible="true"
+							currentPageReportTemplate="{totalRecords} Usuários cadastrados"
+							emptyMessage="Nenhum Usuário cadastrado.">
+
+							<p:column headerText="" style="width:26px;">
+								<p:commandButton icon="ui-icon-pencil" action="editar_usuario"
+									actionListener="#{usuarioBean.selecionarUsuario}"
+									style="width:25px;" />
+							</p:column>
+
+							<p:column headerText="" style="width:26px;">
+								<p:commandButton actionListener="#{usuarioBean.deleteUsuario}"
+									update="listagem_usuarios" icon="ui-icon-trash"
+									style="width:25px;">
+									<p:confirm header="Exclusão de Usuário"
+										message="Deseja mesmo excluir este Usuário?"
+										icon="ui-icon-alert"></p:confirm>
+								</p:commandButton>
+							</p:column>
+
+							<p:column headerText="Código" style="width:30px;">
+								<h:outputText value="#{u.id}" />
+							</p:column>
+
+							<p:column headerText="Nome" style="width:100px;"
+								filterBy="#{u.nome}">
+								<h:outputText value="#{u.nome}" />
+							</p:column>
+
+							<p:column headerText="Telefone" style="width:30px;">
+								<h:outputText value="#{u.telefone}" />
+							</p:column>
+
+							<p:column headerText="Email" style="width:100px;">
+								<h:outputText value="#{u.email}" />
+							</p:column>
+
+						</p:dataTable>
+
+						<p:confirmDialog global="true" showEffect="fade"
+							hideEffect="explode">
+							<p:commandButton value="SIM" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check"></p:commandButton>
+							<p:commandButton value="NÃO" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close"></p:commandButton>
+						</p:confirmDialog>
+					</p:panel>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+	</ui:define>
+	<!-- end content -->
+</ui:composition>
+</html>
+

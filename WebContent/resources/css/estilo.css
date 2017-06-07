@@ -1,0 +1,154 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0 0 0 0;
+	font-family: Arial;
+	font-size: 10pt;
+}
+
+.banner {
+	background-image: url('../img/banner.png') !important;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	bottom: 0;
+	left: 0;
+	overflow: auto;
+	padding: 3em;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 60px;
+	background-size: cover;
+}
+
+.conteudo {
+	width: 550px;
+	margin: 0 auto;
+	height: auto;
+	position: relative;
+	padding: 2px 0px;
+	text-align: left;
+}
+
+.conteudo h1 {
+	text-align: center;
+}
+
+.semBorda tr, .semBorda td {
+	border: none !important;
+}
+
+.conteudoNovo {
+	width: 676px;
+	margin: 0 auto;
+	height: auto;
+	position: relative;
+	padding: 2px 0px;
+	text-align: left;
+}
+
+.conteudoNovo h1 {
+	text-align: center;
+}
+
+.login {
+	font-size:20px;
+	text-align:left;
+	padding:1px;
+}
+
+
+.login h1 {
+	font-size: 20px;
+	color: #fff;
+}
+
+.cabecalho  {
+	width: 100%;
+	height: 60px;
+	background: rgba(96,170,69,1); 
+	background: -moz-linear-gradient(left, rgba(96,170,69,1) 0%, rgba(101,173,67,1) 50%, rgba(101,174,65,1) 53%, rgba(106,179,61,1) 71%, rgba(107,179,61,1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(96,170,69,1)), color-stop(50%, rgba(101,173,67,1)), color-stop(53%, rgba(101,174,65,1)), color-stop(71%, rgba(106,179,61,1)), color-stop(100%, rgba(107,179,61,1)));
+	background: -webkit-linear-gradient(left, rgba(96,170,69,1) 0%, rgba(101,173,67,1) 50%, rgba(101,174,65,1) 53%, rgba(106,179,61,1) 71%, rgba(107,179,61,1) 100%);
+	background: -o-linear-gradient(left, rgba(96,170,69,1) 0%, rgba(101,173,67,1) 50%, rgba(101,174,65,1) 53%, rgba(106,179,61,1) 71%, rgba(107,179,61,1) 100%);
+	background: -ms-linear-gradient(left, rgba(96,170,69,1) 0%, rgba(101,173,67,1) 50%, rgba(101,174,65,1) 53%, rgba(106,179,61,1) 71%, rgba(107,179,61,1) 100%);
+	background: linear-gradient(to right, rgba(96,170,69,1) 0%, rgba(101,173,67,1) 50%, rgba(101,174,65,1) 53%, rgba(106,179,61,1) 71%, rgba(107,179,61,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#60aa45', endColorstr='#6bb33d', GradientType=1 );
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+
+.rodape {
+	width: 100%;
+	height: 35px;	
+	background: rgba(83,156,57,1);
+	background: -moz-linear-gradient(left, rgba(83,156,57,1) 0%, rgba(101,173,67,1) 50%, rgba(114,189,68,1) 56%, rgba(106,179,61,1) 66%, rgba(106,179,61,1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(83,156,57,1)), color-stop(50%, rgba(101,173,67,1)), color-stop(56%, rgba(114,189,68,1)), color-stop(66%, rgba(106,179,61,1)), color-stop(100%, rgba(106,179,61,1)));
+	background: -webkit-linear-gradient(left, rgba(83,156,57,1) 0%, rgba(101,173,67,1) 50%, rgba(114,189,68,1) 56%, rgba(106,179,61,1) 66%, rgba(106,179,61,1) 100%);
+	background: -o-linear-gradient(left, rgba(83,156,57,1) 0%, rgba(101,173,67,1) 50%, rgba(114,189,68,1) 56%, rgba(106,179,61,1) 66%, rgba(106,179,61,1) 100%);
+	background: -ms-linear-gradient(left, rgba(83,156,57,1) 0%, rgba(101,173,67,1) 50%, rgba(114,189,68,1) 56%, rgba(106,179,61,1) 66%, rgba(106,179,61,1) 100%);
+	background: linear-gradient(to right, rgba(83,156,57,1) 0%, rgba(101,173,67,1) 50%, rgba(114,189,68,1) 56%, rgba(106,179,61,1) 66%, rgba(106,179,61,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#539c39', endColorstr='#6ab33d', GradientType=1 );
+	position: fixed;
+	bottom: 0;	
+}
+.rodape p {
+	color: #fff;
+	padding-top: 1px;
+	text-align: center;
+}
+
+.logo img {	
+	padding:6px;
+	float:left;
+}
+
+.menu {
+	width: 80px;
+	height: 100%;
+	margin-left: 95%;
+	padding-top: 5px;
+}
+
+.logado {	
+	width: 120px;
+	height: 100%;
+	margin-left: 88%;
+	margin-top: -26px;
+	padding-bottom: 4px;
+}
+
+
+
+.titulo {
+	color: #424242;
+}
+
+.tituloEditar {
+	color: #EF0D0D;
+}
+
+.menuPrincipal{
+	margin-left:200px;
+	width:60%;
+	
+}
+
+.ui-growl{
+    position:fixed;
+    top:50%;
+    right:50%;
+    width:301px;
+}
+
+.pesquisa{
+	
+	width:600px;
+	height:500px;
+	margin-top:100px;
+	padding-left:50px;
+}
+
+

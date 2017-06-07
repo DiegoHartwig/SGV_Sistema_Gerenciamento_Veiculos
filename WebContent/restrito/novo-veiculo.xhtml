@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastrar veículo</title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+<h:body>
+
+	<!-- Loading -->
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage name="/img/loader.gif" />
+	</p:dialog>
+
+	<h:form id="frmNovoVeiculo" acceptcharset="ISO-8859-1">
+		<p:panel id="painelVeiculo">
+			<p:focus context="painelVeiculo" />
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			<p:panelGrid columns="3" styleClass="semBorda">
+
+				<p:outputLabel value="Modelo do Veículo: *" />
+				<h:panelGroup>
+					<p:selectOneMenu id="selecionaModelo"
+						value="#{veiculoBean.modelo_id}" panelStyle="width:180px"
+						effect="fade" style="width:160px" filter="true"
+						filterMatchMode="startsWith">
+						<f:selectItems value="#{veiculoBean.carregarModelos}" var="mod"
+							size="30" />
+					</p:selectOneMenu>
+				</h:panelGroup>
+
+				<p:commandButton title="Cadastrar Modelo"
+					actionListener="#{modeloBean.novoModelo}"
+					action="#{janelaBean.abrirNovoModelo}" icon="ui-icon-circle-plus"
+					immediate="true">
+				</p:commandButton>
+
+				<p:outputLabel value="Placa:" for="placa" />
+				<p:inputMask mask="aaa-9999" id="placa"
+					value="#{veiculoBean.veiculo.placa}" placeholder="AAA-9999"
+					size="8" />
+
+				<p:outputLabel />
+
+				<p:outputLabel value="KM Atual:" for="kmatual" />
+				<p:inputText id="kmatual" size="20"
+					value="#{veiculoBean.veiculo.kmAtual}"
+					placeholder="Km Atual do Veículo" />
+
+			</p:panelGrid>
+		</p:panel>
+		<p:toolbar>
+			<p:toolbarGroup align="left">
+
+				<p:commandButton value="Salvar" icon="ui-icon-circle-check"
+					actionListener="#{veiculoBean.addVeiculo}" update="@form" />
+
+				<p:commandButton value="Novo"
+					actionListener="#{veiculoBean.novoVeiculo}" ajax="false"
+					action="novo-veiculo?faces-redirect=true" immediate="true"
+					icon="ui-icon-circle-plus" />
+
+			</p:toolbarGroup>
+		</p:toolbar>
+	</h:form>
+</h:body>
+</html>

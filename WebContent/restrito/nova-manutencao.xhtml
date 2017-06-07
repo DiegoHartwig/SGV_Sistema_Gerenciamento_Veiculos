@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Registrar manutenção</title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+<h:body>
+
+	<!-- Loading -->
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage name="/img/loader.gif" />
+	</p:dialog>
+
+	<h:form id="frmNovaManutencao" acceptcharset="ISO-8859-1">
+		<div id="conteudo">
+			<p:panel id="painelNova">
+				<p:focus context="painelNova" />
+				<p:messages autoUpdate="true" />
+				<p:panelGrid columns="2" styleClass="semBorda">
+					<p:outputLabel value="Veículo: *" />
+					<h:panelGroup>
+						<p:selectOneMenu id="selecionaVeiculo"
+							value="#{manutencaoBean.veiculo_id}" panelStyle="width:180px"
+							effect="fade" style="width:200px" filter="true"
+							filterMatchMode="startsWith">
+							<f:selectItems value="#{manutencaoBean.carregarVeiculos}"
+								var="usu" size="30" />
+						</p:selectOneMenu>
+					</h:panelGroup>
+
+
+
+					<p:outputLabel value="Descrição:" />
+					<p:inputTextarea rows="4" cols="42" counter="display"
+						maxlength="200" counterTemplate="{0} caracteres restantes."
+						autoResize="true" id="obs"
+						value="#{manutencaoBean.manutencao.descricao}"
+						placeholder="Resumo da manutenção" />
+					<h:outputText />
+					<h:outputText id="display" />
+
+
+
+					<p:commandButton value="Salvar" icon="ui-icon-circle-check"
+						actionListener="#{manutencaoBean.addManutencao}"
+						process="frmNovaManutencao" update="@form" />
+
+				</p:panelGrid>
+			</p:panel>
+		</div>
+	</h:form>
+</h:body>
+</html>

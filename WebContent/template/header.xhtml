@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+	<!-- begin header -->
+	<div
+		style="width: 100%; line-height: 15px; background: #60aa45; color: #fff;">
+		<p:graphicImage name="/img/logo.png" style="width:160px; padding:5px;" />
+	</div>
+	<!-- end header -->
+
+	<!-- begin menu -->
+	<h:form>
+		<p:menubar>
+			<p:menuitem value="Manutenção" url="/restrito/manutencao.xhtml"
+				icon="ui-icon-wrench" />
+			<p:menuitem value="Usuários" url="/restrito/usuarios.xhtml"
+				icon="	ui-icon-person" />
+			<p:menuitem value="Veiculos" url="/restrito/veiculos.xhtml"
+				icon="ui-icon-star" />
+			<p:menuitem value="Configurações" url="/restrito/config.xhtml"
+				icon="ui-icon-gear " />
+			<p:menuitem value="Indicadores" url="#" icon="ui-icon-clipboard" />
+			<p:menuitem value="Sair" action="#{usuarioBean.logout}"
+				icon="ui-icon-power" />
+			<f:facet name="options">
+				<h:outputText value="Olá, " />
+				<h:outputText value="#{usuarioBean.usuarioLog}" />
+			</f:facet>
+		</p:menubar>
+	</h:form>
+	<!-- end menu -->
+	
+</h:body>
+</html>

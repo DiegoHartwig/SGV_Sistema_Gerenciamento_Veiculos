@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Informação do veículo</title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+<h:body>
+
+	<!-- Loading -->
+	<p:ajaxStatus onstart="PF('statusDialog').show()"
+		onsuccess="PF('statusDialog').hide()" />
+	<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+		closable="false" resizable="false" showHeader="false">
+		<p:graphicImage name="/img/loader.gif" />
+	</p:dialog>
+	
+			<!-- begin form -->
+		<h:form id="frmInfoVeiculo">
+			<p:panel id="painelInfoVeiculo">				
+				<p:dataTable id="listagem_infoVeiculo" value="#{veiculoBean.veiculos}"
+					var="v" draggableColumns="true" style="margin-bottom:0" scrollable="true"
+					scrollWidth="98%" paginator="true" rows="8"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,8,15,20" paginatorPosition="bottom"
+					selection="#{veiculoBean.veiculoSelecionado}"
+					selectionMode="single" rowKey="#{v.id}"
+					paginatorAlwaysVisible="true"
+					currentPageReportTemplate="{totalRecords} Componentes cadastrados"
+					emptyMessage="Nenhum componente cadastrado.">
+
+					<p:ajax event="rowSelect" />
+
+					<f:facet name="header">
+      				  Componentes do veículo
+    			</f:facet>
+
+					<p:column headerText="" style="width:26px;" exportable="false">
+						<p:commandButton icon="ui-icon-search"
+							actionListener="#{veiculoBean.selecionarVeiculo}"
+							action="#{janelaBean.abrirVeiculo}" style="width:25px;"
+							title="Detalhes do Veículo" />
+					</p:column>
+
+
+					<p:column style="width:110px;" filterBy="#{v.modelo.nome}">
+						<f:facet name="header">
+							<h:outputText value="Modelo" />
+						</f:facet>
+						<h:outputText value="#{v.modelo.nome}" />
+					</p:column>
+
+					<p:column style="width:250px;" exportable="false">
+						<f:facet name="header">
+							<h:outputText value="Placa" />
+						</f:facet>
+						<h:outputText value="#{v.placa}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="SIM" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="NÃO" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<p:toolbar>
+					<p:toolbarGroup>
+						<p:commandButton value="Novo Veículo"
+							actionListener="#{veiculoBean.novoVeiculo}"
+							action="#{janelaBean.abrirNovoVeiculo}"
+							icon="ui-icon-circle-plus" immediate="true">
+						</p:commandButton>
+					</p:toolbarGroup>
+				</p:toolbar>
+			</p:panel>
+		</h:form>
+
+	
+</h:body>
+</html>
